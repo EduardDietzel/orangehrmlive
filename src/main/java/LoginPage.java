@@ -16,7 +16,13 @@ public class LoginPage {
     // заводим две переменные для текста ошибки, который возникает под пустыми полями при авторизации
     private SelenideElement requiredMessageLogin = $x("//div[@class='orangehrm-login-slot-wrapper']//div[1]//div[1]//span[1]");
 
-    private SelenideElement requiredMessagePassword = $x("(//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message'])[2]");
+    private SelenideElement requiredMessagePassword = $x("//div[@class='orangehrm-login-form']//div[2]//div[1]//span[1]");
+
+    private SelenideElement forgotYorPasswordLink = $(byClassName("orangehrm-login-forgot"));
+
+    private SelenideElement logoOnLoginPage = $(byAttribute("alt", "company-branding"));
+
+    private SelenideElement credentionals = $(byClassName("orangehrm-login-credentials"));
 
     // пишем методы для заполнения полей авторизации
     public void enterUsername(String usernameValue){
@@ -47,5 +53,23 @@ public class LoginPage {
         requiredMessagePassword.shouldBe(text("Required"));
     }
 
+    public void followTheForgotPasswordLink(){
+        forgotYorPasswordLink.shouldBe(visible);
+        forgotYorPasswordLink.click();
+    }
+
+    public void checkCompanyLogoIsDisplayed(){
+        logoOnLoginPage.shouldBe(visible);
+    }
+
+    public void logoImageIsCorrect(){
+
+        logoOnLoginPage.shouldHave(attributeMatching("src",
+                ".*branding.png.*"));
+    }
+
+    public void checkCredentionalsIsDisplayed(){
+        credentionals.shouldBe(visible);
+    }
 
 }

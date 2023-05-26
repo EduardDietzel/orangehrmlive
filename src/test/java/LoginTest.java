@@ -1,7 +1,8 @@
-import org.junit.Test;
-import static com.codeborne.selenide.Selenide.*;
+import static org.junit.Assert.assertTrue;
 
-public class LoginTest{
+import org.junit.Test;
+
+public class LoginTest extends BaseTest{
 
 //    @Test
 //    public void successLogin() {
@@ -23,13 +24,13 @@ public class LoginTest{
 
     @Test
     public void successLogin() {
-        open("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-        LoginPage loginPage = new LoginPage();
+        // LoginPage loginPage = new LoginPage();
+        // вынесли эту переменную в BaseTest
         loginPage.enterUsername("Admin");
         loginPage.enterPassword("admin123");
         loginPage.clickLoginButton();
         // $(byTagName("h6")).shouldHave(text("Dashboard"));
-        DashboardPage dashboardPage = new DashboardPage();
+        // DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.correctHeaderText();
     }
 
@@ -37,8 +38,6 @@ public class LoginTest{
     @Test
     public void invalidPassword(){
         // check error message text "Invalid credentials"
-        open("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-        LoginPage loginPage = new LoginPage();
         loginPage.enterUsername("Admin");
         loginPage.enterPassword("admin12");
         loginPage.clickLoginButton();
@@ -49,16 +48,44 @@ public class LoginTest{
     @Test
     public void emptyInputFields(){
         // check error messages with empty Input fields "Required"
-        open("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-        LoginPage loginPage = new LoginPage();
         loginPage.enterUsername("");
         loginPage.enterPassword("");
         loginPage.clickLoginButton();
         loginPage.checkRequiredMessageLogin();
         loginPage.checkRequiredMessagePassword();
+    }
 
+    @Test
+    public void emptyInputUsernameFields(){
+        // check error messages with empty Input fields "Required"
+        loginPage.enterPassword("admin12");
+        loginPage.clickLoginButton();
+        loginPage.checkRequiredMessageLogin();
     }
 
     // надо написать еще один тест с пустым одним из двух полей
+    @Test
+    public void emptyInputPasswordFields(){
+        loginPage.enterUsername("Admin");
+        loginPage.clickLoginButton();
+        loginPage.checkRequiredMessagePassword();
+    }
 
+    @Test
+    public void forgotYorPassword(){
+        loginPage.followTheForgotPasswordLink();
+        // check that we on Reset Password page
+        // ResetPasswordPage resetPasswordPage = new ResetPasswordPage();
+        resetPasswordPage.checkResetPasswordTitle();
+        resetPasswordPage.urlIsCorrect();
+    }
+
+    @Test
+    public void elementsAreVisible(){
+        // logo is displayed
+        // credentionals section is displayed
+        loginPage.checkCompanyLogoIsDisplayed();
+        loginPage.checkCredentionalsIsDisplayed();
+        loginPage.logoImageIsCorrect();
+    }
 }
