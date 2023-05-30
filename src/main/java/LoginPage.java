@@ -18,11 +18,11 @@ public class LoginPage {
 
     private SelenideElement requiredMessagePassword = $x("//div[@class='orangehrm-login-form']//div[2]//div[1]//span[1]");
 
-    private SelenideElement forgotYorPasswordLink = $(byClassName("orangehrm-login-forgot"));
+    private SelenideElement forgotPasswordLink = $(byClassName("orangehrm-login-forgot"));
 
     private SelenideElement logoOnLoginPage = $(byAttribute("alt", "company-branding"));
 
-    private SelenideElement credentionals = $(byClassName("orangehrm-login-credentials"));
+    private SelenideElement credentionals = $(byClassName("orangehrm-demo-credentials"));
 
     // пишем методы для заполнения полей авторизации
     public void enterUsername(String usernameValue){
@@ -54,8 +54,8 @@ public class LoginPage {
     }
 
     public void followTheForgotPasswordLink(){
-        forgotYorPasswordLink.shouldBe(visible);
-        forgotYorPasswordLink.click();
+        forgotPasswordLink.shouldBe(visible);
+        forgotPasswordLink.click();
     }
 
     public void checkCompanyLogoIsDisplayed(){

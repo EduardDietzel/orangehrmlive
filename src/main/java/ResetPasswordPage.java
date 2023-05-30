@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ResetPasswordPage {
 
-    private SelenideElement header = $(byTagName("h66"));
+    private SelenideElement header = $(byTagName("h6"));
 
     public void checkResetPasswordTitle(){
         header.shouldBe(Condition.visible);
